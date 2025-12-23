@@ -16,7 +16,7 @@
 - Each room also has a unique room code, through which users can access any room in the study hub
 - Rooms can be public or private. Users have the ability to create both public and private rooms.
 - Public rooms can be accessed directly from the home page of the app, which shows a paginated list of all public rooms available
-- On the other hand, private rooms can only be acceessed through their room code. Users are free to either directly enter the room URL into their browser, or enter the room code on the home page of the app in order to join rooms
+- On the other hand, private rooms can only be accessed through their room code. Users are free to either directly enter the room URL into their browser, or enter the room code on the home page of the app in order to join rooms
 - Users have the option to either sign up using a username and password, or using GitHub.
 - Logging in with github has an additional advantage- it enabled users to upload PDF documents in rooms. Any document uploaded by a user is stored transparently on a GitHub repository that is automatically created on their account as soon as they sign up with or link their GitHub account
 
@@ -83,7 +83,7 @@
 
 #### Authentication
 - The authentication system is pretty standard, we support logging in with username/password and github OAuth. Passwords are hashed, of course.
-- On the backend, the authentication system is session based, idential to our setup in homework assignments (but in Go)
+- On the backend, the authentication system is session based.
 ### Security
 - All API endpoints other than the authentication ones are protected, ie only users with a valid ongoing session can access info related to rooms and documents.
 - For websockets, the initial websocket connection is only completed if the user is authentication. In Go, we first get a usual HTTP request which is then upgraded to websocket. The authentication check happens before upgrading to websockets
@@ -97,10 +97,10 @@
 
 ## Deployment
 
-- The app is deployed on the VM, similar to the assignments, with a few updates to the docker+nginx support
+- The app is deployed on the VM with a few updates to the docker+nginx support
 - Since the frontend uses dynamic routes (such as website.com/room/{roomCode}/), we had to run the frontend as a node server separately instead of serving static files. This required us to create a Dockerfile from the frontend
 - Nginx config needed some updates to allow websockets
-- Both the postgres and redis instances are running as docker containers on the VM (Sorry again for leaving the ports mapped)
+- Both the postgres and redis instances are running as docker containers on the VM
 - The acme-companion part for HTTPS
 
 ## Challenges
