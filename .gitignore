@@ -1,0 +1,49 @@
+# Frontend - Node.js
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/.env*.local
+node_modules/
+
+# Backend - Go
+backend/server
+backend/tmp/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Docker & Deployment
+certs/
+vhost.d/
+html/
+uploads/
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.vs/
+
+# OS
+.DS_Store
+Thumbs.db
+*.bak
+*.tmp
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Build artifacts
+dist/
+build/
+*.min.js
+*.min.css

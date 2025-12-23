@@ -1,0 +1,45 @@
+name: Deploy to VM
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      nuke:
+        description: "Nuke all docker volumes and restart"
+        required: false
+        type: boolean
+        default: false 
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to VM
+        uses: appleboy/ssh-action@v1.2.3
+        with:
+          host: ${{ secrets.VM_HOST }}
+          username: ${{ secrets.VM_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          passphrase: ${{ secrets.SSH_KEY_PASSPHRASE }}
+          script: |
+            set -e
+            cd project
+
+            echo "Pulling code..."
+            git pull
+
+            if [ "${{ github.events.inputs.nuke }}" = "true" ]; then
+              echo "Nuking docker volumes..."
+              docker compose down --volumes
+            fi
+
+            echo "Building Docker containers..."
+            docker compose build
+
+            echo "Starting containers..."
+            docker compose up -d
+
+            echo "Deployment complete."
